@@ -1,0 +1,43 @@
+/* Hacker Theme */
+
+/* Light variant */
+:root[data-theme='light'] {
+  --bg-color: #e0e0e0;
+  --text-color: #0b3d0b;          /* dark green */
+  --primary-color: #0b3d0b;
+  --secondary-color: #066006;
+  --sidebar-bg: #c0c0c0;
+  --sidebar-text: #0b3d0b;
+  --sidebar-hover: #99cc99;
+  --link-color: #0b3d0b;
+  --border-color: #a0a0a0;
+  --accent-color: #33cc33;
+}
+
+/* Dark variant */
+:root[data-theme='dark'] {
+  --bg-color: #000000;
+  --text-color: #00ff00;
+  --primary-color: #00ff00;
+  --secondary-color: #009900;
+  --sidebar-bg: #002200;
+  --sidebar-text: #00ff00;
+  --sidebar-hover: #004400;
+  --link-color: #00ff00;
+  --border-color: #00ff00;
+  --accent-color: #00ff00;
+}
+
+/* High Contrast variant */
+:root[data-theme='high-contrast'] {
+  --bg-color: #000000;
+  --text-color: #00ff00;
+  --primary-color: #00ff00;
+  --secondary-color: #00ff00;
+  --sidebar-bg: #000000;
+  --sidebar-text: #00ff00;
+  --sidebar-hover: #005500;
+  --link-color: #00ff00;
+  --border-color: #00ff00;
+  --accent-color: #00ff00;
+}

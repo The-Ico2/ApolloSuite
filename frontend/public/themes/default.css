@@ -1,0 +1,314 @@
+/* =================
+   Default Theme CSS
+   Light / Dark / High Contrast
+   ================= */
+
+/* Light variant */
+:root[data-theme='light'] {
+  --bg-color: #ffffff;
+  --text-color: #222222;
+  --primary-color: #007acc;
+  --secondary-color: #005f99;
+  --sidebar-bg: #f5f7fa;
+  --sidebar-text: #333333;
+  --sidebar-hover: #e1e7ef;
+  --link-color: #007acc;
+  --border-color: #d1d5db;
+  --accent-color: #00bcd4;
+}
+
+/* Dark variant */
+:root[data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --primary-color: #3399ff;
+  --secondary-color: #2672cc;
+  --sidebar-bg: #1e1e1e;
+  --sidebar-text: #bbbbbb;
+  --sidebar-hover: #333333;
+  --link-color: #3399ff;
+  --border-color: #444444;
+  --accent-color: #00bcd4;
+}
+
+/* High Contrast variant */
+:root[data-theme='high-contrast'] {
+  --bg-color: #000000;
+  --text-color: #ffffff;
+  --primary-color: #ffff00;
+  --secondary-color: #cccc00;
+  --sidebar-bg: #000000;
+  --sidebar-text: #ffffff;
+  --sidebar-hover: #222200;
+  --link-color: #ffff00;
+  --border-color: #ffffff;
+  --accent-color: #ffff00;
+}
+
+/* =================
+   Global CSS
+   ================= */
+
+/* global.css */
+
+/* CSS Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root variables for font sizes */
+:root {
+  --font-xsmall: font-size: 16px; /* default font size */
+  --font-small: font-size: 16px; /* default font size */
+  --font-medium: font-size: 16px; /* default font size */
+  --font-large: font-size: 16px; /* default font size */
+  --font-xlarge: font-size: 16px; /* default font size */
+}
+
+/* Font size variants */
+:root[data-font-size='small'] {
+  font-size: 14px;
+}
+
+:root[data-font-size='large'] {
+  font-size: 18px;
+}
+
+/* Body styles */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  line-height: 1.5;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout wrappers */
+.app-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 2rem 2rem 2rem 2rem;
+  overflow-y: auto;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Sidebar / Dock Base */
+/* Scrollbar Styling for WebKit */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 4px;
+}
+
+/* Sidebar / Dock Base */
+.sidebar {
+  display: flex;
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+  user-select: none;
+  z-index: 1000;
+}
+
+/* Sidebar positioning variants */
+.sidebar-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  flex-direction: column;
+  width: 60px;
+  height: 100vh;
+}
+
+.sidebar-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  flex-direction: column;
+  width: 60px;
+  height: 100vh;
+}
+
+.sidebar-top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  flex-direction: row;
+  width: 100vw;
+}
+
+.sidebar-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  flex-direction: row;
+  width: 100vw;
+}
+
+/* Sidebar content layout */
+.sidebar .dock-icons {
+  flex: 1;
+  display: flex;
+  flex-direction: inherit;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.sidebar a {
+  color: inherit;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: var(--sidebar-hover);
+  color: var(--accent-color);
+}
+
+/* Sidebar footer */
+.sidebar .dock-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  gap: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--sidebar-text);
+}
+
+.sidebar-bottom .dock-footer, .sidebar-top .dock-footer {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+/*
+  * Sidebar content padding adjustments for different positions 
+ */
+.sidebar-top-e .main-content {
+  padding-top: 5rem; /* Adjust for top sidebar */
+}
+.sidebar-right-e .main-content {
+  padding-right: 5rem; /* Adjust for right sidebar */
+}
+.sidebar-bottom-e .main-content {
+  padding-bottom: 5rem; /* Adjust for bottom sidebar */
+}
+.sidebar-left-e .main-content {
+  padding-left: 5rem; /* Adjust for left sidebar */
+}
+
+/* Clock in sidebar footer */
+.dock-clock {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--sidebar-text);
+  user-select: none;}
+
+/* Buttons */
+button {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Scrollbar for main content */
+.main-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main-content::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+.main-content::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 4px;
+}
+
+.settings-content {
+  border: 2px var(--primary-color) solid;
+  border-radius: 3px;
+  padding: 1rem;
+  min-height: 80vh;
+}
+
+/* Animation keyframes */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* No Animations toggle */
+.no-animations *, 
+.no-animations *::before, 
+.no-animations *::after {
+  animation-duration: 0 !important;
+  transition-duration: 0 !important;
+  scroll-behavior: auto !important;
+}
