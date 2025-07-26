@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apollo Docs</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}" />
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Apollo Docs</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="new-doc">
+      <h2>Start a new document</h2>
+      <div class="doc-template" onclick="createNewDoc()">
+        <div class="doc-icon">+</div>
+        <div class="doc-label">Blank</div>
+      </div>
+    </section>
+
+    <section class="recent-docs">
+      <h2>Recent documents</h2>
+      <div class="doc-grid" id="docGrid">
+        <!-- Populated dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='scripts/scripts.js') }}"></script>
+</body>
+</html>
