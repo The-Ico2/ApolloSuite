@@ -6,8 +6,6 @@ const VARIANTS = ['light', 'dark', 'high-contrast'];
 export default function ThemeSettings({ currentTheme, setCurrentTheme, currentVariant, setCurrentVariant }) {
   return (
     <div className="settings-content">
-      <h2 style={{ marginBottom: '1rem' }}>Theme Selection</h2>
-
       {/* Theme Selector */}
       <label style={{ display: 'block', marginBottom: '0.5rem' }}>Choose Theme:</label>
       <select

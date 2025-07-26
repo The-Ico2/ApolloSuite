@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import NotificationCenter from '../components/NotificationCenter';
+
+import AppsDashboard from './dashboard/apps.jsx';
 
 export default function Dashboard() {
   return (
     <div>
       <h2>Dashboard</h2>
-      <NotificationCenter />
+      <AppsDashboard />
     </div>
   );
 }

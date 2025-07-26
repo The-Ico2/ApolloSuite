@@ -4,11 +4,12 @@ import {
   FiHome,
   FiCloud,
   FiShare2,
-  FiBookOpen,
   FiSun,
   FiMoon,
   FiEye,
-  FiSettings
+  FiSettings,
+  FiBook,
+  FiTool
 } from 'react-icons/fi';
 
 const VARIANTS = ['light', 'dark', 'high-contrast'];
@@ -29,21 +30,34 @@ export default function Sidebar({ position = 'left', currentVariant, setVariant 
 
   return (
     <div className={`sidebar sidebar-${position}`}>
+      {/* Top Main Icons */}
       <div className="dock-icons">
         <NavLink to="/" title="Dashboard"><FiHome /></NavLink>
         <NavLink to="/social" title="Social"><FiShare2 /></NavLink>
         <NavLink to="/storage" title="Storage"><FiCloud /></NavLink>
-        <NavLink to="/obsidian" title="Obsidian"><FiBookOpen /></NavLink>
-        <NavLink to="/settings" title="Settings"><FiSettings /></NavLink>
       </div>
 
+      {/* Footer Section */}
       <div className="dock-footer">
-        <button title="Toggle Theme Variant" onClick={nextVariant}>
-          {currentVariant === 'dark' ? <FiSun /> :
-           currentVariant === 'light' ? <FiEye /> :
-           <FiMoon />}
-        </button>
-        <div className="dock-clock">{time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+        {/* Theme Toggle */}
+        
+
+        {/* Clock */}
+        <div className="dock-clock">
+          {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' })}
+        </div>
+
+        {/* Utility Icons (Mini Buttons) */}
+        <div className="dock-tools">
+          <NavLink to="/logbook" title="Logbook"><FiBook /></NavLink>
+          <NavLink to="/dev" title="Dev Tools"><FiTool /></NavLink>
+          <NavLink to="/settings" title="Settings"><FiSettings /></NavLink>
+          <button title="Toggle Theme Variant" onClick={nextVariant}>
+            {currentVariant === 'dark' ? <FiSun /> :
+            currentVariant === 'light' ? <FiEye /> :
+            <FiMoon />}
+          </button>
+        </div>
       </div>
     </div>
   );

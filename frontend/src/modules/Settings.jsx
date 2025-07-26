@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TabNavigation from './settings/TabNavigation';
+import TabNavigation from './settings/TabNavigationSettings';
 import ThemeSettings from './settings/ThemeSettings';
 import AppearanceSettings from './settings/AppearanceSettings';
 import NotificationSettings from './settings/NotificationSettings';

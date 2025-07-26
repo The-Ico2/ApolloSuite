@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', monospace, sans-serif; background: #181818; color: #eee; margin: 0; }
+        .container { max-width: 1700px; margin: 0 auto; padding: 32px 16px; }
+        h2 { margin-bottom: 24px; }
+        .filters { margin-bottom: 24px; }
+        .pill {
+            display: inline-block;
+            padding: 4px 14px;
+            margin: 0 6px 6px 0;
+            border-radius: 16px;
+            background: #222;
+            color: #fff;
+            font-size: 0.95em;
+            cursor: pointer;
+            border: 1px solid #444;
+            transition: background 0.2s, color 0.2s;
+        }
+        .pill.selected, .pill:hover { background: #00bcd4; color: #181818; }
+        .cards { display: flex; flex-wrap: wrap; gap: 24px; }
+        .card {
+            background: #232323;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px #0006;
+            padding: 20px 22px 16px 22px;
+            min-width: 320px;
+            max-width: 420px;
+            flex: 1 1 320px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .card-title { font-size: 1.2em; font-weight: bold; margin-bottom: 8px; }
+        .card-methods { margin-bottom: 12px; }
+        .card-method-pill {
+            display: inline-block;
+            padding: 2px 10px;
+            margin-right: 6px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+            background: #444;
+            color: #fff;
+            border: 1px solid #555;
+        }
+        .card-method-pill.GET { background: #00e676; color: #181818; }
+        .card-method-pill.POST { background: #2979ff; color: #fff; }
+        .card-method-pill.PUT { background: #ffb300; color: #181818; }
+        .card-method-pill.DELETE { background: #e53935; color: #fff; }
+        .card-method-pill.OPTIONS { background: #757575; color: #fff; }
+        .card-method-pill.HEAD { background: #757575; color: #fff; }
+        .card-content {
+            background: #181818;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            min-height: 60px;
+            font-size: 1em;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.95em;
+            color: #aaa;
+        }
+        .endpoint { font-family: monospace; }
+        .last-update { font-style: italic; }
+        @media (max-width: 900px) {
+            .cards { flex-direction: column; }
+            .card { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>API Dashboard</h2>
+    <div class="filters" id="method-filters"></div>
+    <div class="cards" id="api-cards">
+        <div>Loading...</div>
+    </div>
+</div>
+<script>
+    const lastUpdateTimes = {};
+    const lastSeenData = {};
+    let apiData = [];
+    let selectedMethods = new Set();
+
+    function timeAgo(ts) {
+        if (!ts) return "Never";
+        const now = Date.now();
+        const diff = Math.floor((now - ts) / 1000);
+        if (diff < 2) return "just now";
+        if (diff < 60) return `${diff} seconds ago`;
+        if (diff < 3600) return `${Math.floor(diff / 60)} minutes ago`;
+        return `${Math.floor(diff / 3600)} hours ago`;
+    }
+
+    function renderFilters() {
+        const allMethods = new Set();
+        apiData.forEach(route => route.methods.forEach(m => allMethods.add(m)));
+        const filtersDiv = document.getElementById("method-filters");
+        filtersDiv.innerHTML = "";
+
+        Array.from(allMethods).sort().forEach(method => {
+            const pill = document.createElement("span");
+            pill.className = "pill" + (selectedMethods.has(method) ? " selected" : "");
+            pill.textContent = method;
+            pill.onclick = () => {
+                if (selectedMethods.has(method)) {
+                    selectedMethods.delete(method);
+                } else {
+                    selectedMethods.add(method);
+                }
+                renderCards();
+                renderFilters();
+            };
+            filtersDiv.appendChild(pill);
+        });
+    }
+
+    function renderCards() {
+        const cardsDiv = document.getElementById("api-cards");
+        cardsDiv.innerHTML = "";
+        let filtered = apiData;
+        if (selectedMethods.size > 0) {
+            filtered = apiData.filter(route =>
+                route.methods.some(m => selectedMethods.has(m))
+            );
+        }
+        if (filtered.length === 0) {
+            cardsDiv.innerHTML = "<div>No routes match the selected filter(s).</div>";
+            return;
+        }
+
+        filtered.forEach(route => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            const title = document.createElement("div");
+            title.className = "card-title";
+            title.textContent = route.rule;
+            card.appendChild(title);
+
+            const methodsDiv = document.createElement("div");
+            methodsDiv.className = "card-methods";
+            route.methods.forEach(m => {
+                const pill = document.createElement("span");
+                pill.className = "card-method-pill " + m;
+                pill.textContent = m;
+                methodsDiv.appendChild(pill);
+            });
+            card.appendChild(methodsDiv);
+
+            const content = document.createElement("div");
+            content.className = "card-content";
+            if ("data" in route) {
+                if (typeof route.data === "object") {
+                    content.innerHTML = `<pre>${JSON.stringify(route.data, null, 2)}</pre>`;
+                } else {
+                    content.textContent = route.data;
+                }
+            } else {
+                content.innerHTML = "<span style='color:#888'>N/A</span>";
+            }
+            card.appendChild(content);
+
+            const footer = document.createElement("div");
+            footer.className = "card-footer";
+            const endpoint = document.createElement("span");
+            endpoint.className = "endpoint";
+            endpoint.textContent = route.endpoint;
+
+            const lastUpdate = document.createElement("span");
+            lastUpdate.className = "last-update";
+            lastUpdate.dataset.rule = route.rule;
+            lastUpdate.textContent = "Last update: " + timeAgo(lastUpdateTimes[route.rule]);
+
+            footer.appendChild(endpoint);
+            footer.appendChild(lastUpdate);
+            card.appendChild(footer);
+            cardsDiv.appendChild(card);
+        });
+    }
+
+    function fetchApiData() {
+        fetch("/api")
+            .then(res => res.json())
+            .then(data => {
+                apiData = data.routes;
+
+                apiData.forEach(route => {
+                    const currentData = JSON.stringify(route.data ?? null);
+                    const previousData = lastSeenData[route.rule];
+
+                    if (currentData !== previousData) {
+                        lastUpdateTimes[route.rule] = Date.now();
+                        lastSeenData[route.rule] = currentData;
+                    }
+                });
+
+                renderCards();
+                renderFilters();
+            })
+            .catch(err => {
+                document.getElementById("api-cards").innerHTML =
+                    `<div style="color:red;">Error: ${err}</div>`;
+            });
+    }
+
+    // Update timestamps every second
+    setInterval(() => {
+        document.querySelectorAll(".last-update").forEach(el => {
+            const rule = el.dataset.rule;
+            el.textContent = "Last update: " + timeAgo(lastUpdateTimes[rule]);
+        });
+    }, 1000);
+
+    // Initial fetch and periodic refresh
+    fetchApiData();
+    setInterval(fetchApiData, 5000);
+</script>
+</body>
+</html>

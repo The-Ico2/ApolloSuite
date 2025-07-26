@@ -48,10 +48,9 @@
 /* =================
    Global CSS
    ================= */
-
 /* global.css */
 
-/* CSS Reset */
+/* ==== CSS Reset ==== */
 *,
 *::before,
 *::after {
@@ -60,25 +59,23 @@
   box-sizing: border-box;
 }
 
+/* ==== Font Sizes ==== */
 /* Root variables for font sizes */
 :root {
-  --font-xsmall: font-size: 16px; /* default font size */
-  --font-small: font-size: 16px; /* default font size */
+  --font-xsmall: font-size: 14px; /* default font size */
+  --font-small: font-size: 15px; /* default font size */
   --font-medium: font-size: 16px; /* default font size */
-  --font-large: font-size: 16px; /* default font size */
-  --font-xlarge: font-size: 16px; /* default font size */
+  --font-large: font-size: 17px; /* default font size */
+  --font-xlarge: font-size: 18px; /* default font size */
 }
+/* Font Variants */
+:root[data-font-size='xsmall'] {font-size: var(--font-xsmall);}
+:root[data-font-size='small'] {font-size: var(--font-small);}
+:root[data-font-size='medium'] {font-size: var(--font-medium);}
+:root[data-font-size='large'] {font-size: var(--font-large);}
+:root[data-font-size='xlarge'] {font-size: var(--font-xlarge);}
 
-/* Font size variants */
-:root[data-font-size='small'] {
-  font-size: 14px;
-}
-
-:root[data-font-size='large'] {
-  font-size: 18px;
-}
-
-/* Body styles */
+/* ==== Body styles ==== */
 body {
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -86,12 +83,11 @@ body {
   margin: 0;
   padding: 0;
   transition: background-color 0.3s ease, color 0.3s ease;
-  line-height: 1.5;
   min-height: 100vh;
   width: 100%;
 }
 
-/* Links */
+/* ==== Links ==== */
 a {
   color: var(--link-color);
   text-decoration: none;
@@ -101,7 +97,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Layout wrappers */
+/* ==== Layout wrappers ==== */
 .app-layout {
   display: flex;
   height: 100vh;
@@ -110,29 +106,14 @@ a:hover {
 
 .main-content {
   flex-grow: 1;
-  padding: 2rem 2rem 2rem 2rem;
+  padding: 2rem;
   overflow-y: auto;
   background-color: var(--bg-color);
   color: var(--text-color);
 }
 
-/* Sidebar / Dock Base */
-/* Scrollbar Styling for WebKit */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
 
-::-webkit-scrollbar-track {
-  background: var(--bg-color);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color);
-  border-radius: 4px;
-}
-
-/* Sidebar / Dock Base */
+/* ==== Sidebar / Dock Base ==== */
 .sidebar {
   display: flex;
   background-color: var(--sidebar-bg);
@@ -140,6 +121,21 @@ a:hover {
   box-shadow: 0 0 6px rgba(0,0,0,0.1);
   user-select: none;
   z-index: 1000;
+}
+.sidebar a {
+  color: inherit;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+.sidebar a.active,
+.sidebar a:hover {
+  background-color: var(--sidebar-hover);
+  color: var(--accent-color);
 }
 
 /* Sidebar positioning variants */
@@ -152,7 +148,6 @@ a:hover {
   width: 60px;
   height: 100vh;
 }
-
 .sidebar-right {
   position: fixed;
   top: 0;
@@ -162,7 +157,6 @@ a:hover {
   width: 60px;
   height: 100vh;
 }
-
 .sidebar-top {
   position: fixed;
   top: 0;
@@ -172,7 +166,6 @@ a:hover {
   flex-direction: row;
   width: 100vw;
 }
-
 .sidebar-bottom {
   position: fixed;
   bottom: 0;
@@ -193,21 +186,53 @@ a:hover {
   gap: 1rem;
 }
 
-.sidebar a {
-  color: inherit;
-  font-size: 1.4rem;
+.sidebar .dock-tools {
+  flex: 1;
   display: flex;
+  flex-direction: inherit;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
+  gap: 0.5rem;
 }
 
-.sidebar a.active,
-.sidebar a:hover {
+.sidebar .dock-tools a, .sidebar .dock-tools button{
+  font-size: 1.1rem;
+  padding: 0.20rem; 
+  border-radius: 4px;
+  min-width: 1rem;
+  min-height: 1rem;
+  aspect-ratio: 1/1;
+  color: var(--sidebar-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+.sidebar .dock-tools a:hover,
+.sidebar .dock-tools a.active {
   background-color: var(--sidebar-hover);
   color: var(--accent-color);
+}
+.sidebar-left .dock-tools,
+.sidebar-right .dock-tools {
+  flex-direction: row;       /* Make them horizontal */
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  flex-wrap:  wrap;
+}
+.sidebar-top .dock-tools,
+.sidebar-bottom .dock-tools {
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar .dock-tools::before {
+  content: '';
+  display: block;
+  width: 60%;
+  height: 1px;
+  background-color: var(--sidebar-hover);
+  margin: 0.5rem auto;
 }
 
 /* Sidebar footer */
@@ -228,35 +253,27 @@ a:hover {
   justify-content: center;
 }
 
-/*
-  * Sidebar content padding adjustments for different positions 
- */
-.sidebar-top-e .main-content {
-  padding-top: 5rem; /* Adjust for top sidebar */
-}
-.sidebar-right-e .main-content {
-  padding-right: 5rem; /* Adjust for right sidebar */
-}
-.sidebar-bottom-e .main-content {
-  padding-bottom: 5rem; /* Adjust for bottom sidebar */
-}
-.sidebar-left-e .main-content {
-  padding-left: 5rem; /* Adjust for left sidebar */
-}
+/* Sidebar positioning variants with main content padding */
+
+.sidebar-top-e .main-content {padding-top: 5rem;} /* Adjust for top sidebar */
+.sidebar-right-e .main-content {padding-right: 5rem;} /* Adjust for right sidebar */
+.sidebar-bottom-e .main-content {padding-bottom: 5rem;} /* Adjust for bottom sidebar */
+.sidebar-left-e .main-content {padding-left: 5rem;} /* Adjust for left sidebar */
 
 /* Clock in sidebar footer */
 .dock-clock {
   font-size: 0.8rem;
   font-weight: bold;
   color: var(--sidebar-text);
-  user-select: none;}
+  user-select: none;
+}
 
-/* Buttons */
+/* ==== Buttons ==== */
 button {
   background-color: var(--primary-color);
   border: none;
   color: var(--text-color);
-  padding: 0.5rem 1rem;
+  padding: 0.5rem;
   cursor: pointer;
   border-radius: 3px;
   font-weight: 600;
@@ -267,7 +284,21 @@ button:hover {
   background-color: var(--secondary-color);
 }
 
-/* Scrollbar for main content */
+/* ==== Scrollbar ==== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color);
+  border-radius: 4px;
+}
+/* Main Content Scroll Bar */
 .main-content::-webkit-scrollbar {
   width: 8px;
 }

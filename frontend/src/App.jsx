@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Sidebar from './components/Sidebar';
 import Dashboard from './modules/dashboard';
-import Social from './modules/Social';
 import Settings from './modules/Settings';
 import { AppearanceProvider, useAppearance } from './context/AppearanceContext';
 
@@ -41,7 +40,6 @@ function AppContent() {
         <div className="main-content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/social" element={<Social />} />
             <Route
               path="/settings"
               element={

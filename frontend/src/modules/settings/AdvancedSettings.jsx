@@ -7,8 +7,6 @@ export default function AdvancedSettings() {
 
   return (
     <div className="settings-content">
-      <h2>Advanced Settings</h2>
-
       <div style={{ marginBottom: '1rem' }}>
         <label>
           <input

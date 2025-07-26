@@ -32,8 +32,6 @@ export default function AppearanceSettings() {
 
   return (
     <div className="settings-content">
-      <h2>Appearance Settings</h2>
-
       <label style={{ display: 'block', margin: '1rem 0 0.5rem' }}>Dock Position:</label>
       <select
         value={dockPosition}
