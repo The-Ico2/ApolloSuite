@@ -180,13 +180,12 @@ def core_status():
 def start_app():
     data = request.get_json()
     app_source = data.get("source")
-    app_category = data.get("category")
     app_folder = data.get("folder")
 
-    if not (app_source and app_category and app_folder):
+    if not (app_source and app_folder):
         return jsonify({"error": "Missing required fields"}), 400
 
-    app_path = os.path.abspath(os.path.join(PROJECT_ROOT, "apps", app_source, app_category, app_folder))
+    app_path = os.path.abspath(os.path.join(PROJECT_ROOT, "apps", app_source, app_folder))
     start_script = os.path.join(app_path, "start.py")
     venv_python = os.path.join(app_path, "venv", "bin", "python")
     if os.name == "nt":
@@ -254,10 +253,9 @@ def stop_app():
 def launch_app():
     data = request.get_json()
     app_source = data.get("source")
-    app_category = data.get("category")
     app_folder = data.get("folder")
 
-    if not (app_source and app_category and app_folder):
+    if not (app_source and app_folder):
         return jsonify({"success": False, "error": "Missing required fields"}), 400
 
     with process_lock:

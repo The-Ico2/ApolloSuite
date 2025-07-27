@@ -6,19 +6,12 @@ import configparser
 import time
 import mimetypes
 
-from flask import (
-    Flask, redirect, url_for, render_template,
-    flash, session, request, jsonify, abort,
-    send_from_directory
-)
-from flask_login import (
-    LoginManager, login_user, current_user,
-    login_required, logout_user
-)
+from flask import Flask, redirect, url_for, render_template, flash, session, request, jsonify, abort, send_from_directory
+from flask_login import LoginManager, login_user, current_user, login_required, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
-from models import db, User, SocialAccount, Notification
+from models import db, User
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*"})
@@ -113,7 +106,7 @@ def list_apps():
     return jsonify(apps)
 
 
-@app.route("/apidashboard")
+@app.route("/api_dashboard")
 def api_dashboard():
     return render_template("api_dashboard.html")
 
@@ -127,7 +120,7 @@ app_registry = [
     {
         "name": "Apollo Docs",
         "description": "Documentation Viewer and Editor",
-        "icon": "/apps/Apollo/productivity/docs/icons/icon.png",
+        "icon": "/apps/Apollo/productivity/docs/static/icons/icon.png",
         "launchUrl": "/apps/Apollo/productivity/docs/index.html",
         "source": "Apollo",
         "category": "productivity",
@@ -136,7 +129,7 @@ app_registry = [
     {
         "name": "Apollo Slides",
         "description": "Presentation Viewer and Editor",
-        "icon": "/apps/Apollo/productivity/slides/icons/icon.png",
+        "icon": "/apps/Apollo/productivity/slides/static/icons/icon.png",
         "launchUrl": "/apps/Apollo/productivity/slides/index.html",
         "source": "Apollo",
         "category": "productivity",
