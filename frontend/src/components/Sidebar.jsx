@@ -33,7 +33,6 @@ export default function Sidebar({ position = 'left', currentVariant, setVariant 
       {/* Top Main Icons */}
       <div className="dock-icons">
         <NavLink to="/" title="Dashboard"><FiHome /></NavLink>
-        <NavLink to="/social" title="Social"><FiShare2 /></NavLink>
         <NavLink to="/storage" title="Storage"><FiCloud /></NavLink>
       </div>
 

@@ -33,7 +33,7 @@ def load_user(user_id):
 
 @app.route("/")
 def root():
-    return redirect(url_for("index"))
+    return redirect(url_for("api_dashboard"))
 
 @app.route("/api")
 def index():
@@ -77,31 +77,25 @@ def list_apps():
         if not os.path.isdir(source_path):
             continue
 
-        for category in os.listdir(source_path):  # e.g., productivity, socials, etc.
-            category_path = os.path.join(source_path, category)
-            if not os.path.isdir(category_path):
+        for app_folder in os.listdir(source_path):
+            app_path = os.path.join(source_path, app_folder)
+            if not os.path.isdir(app_path):
                 continue
 
-            for app_folder in os.listdir(category_path):
-                app_path = os.path.join(category_path, app_folder)
-                if not os.path.isdir(app_path):
-                    continue
-
-                config_path = os.path.join(app_path, "config.ini")
-                if os.path.isfile(config_path):
-                    config = configparser.ConfigParser()
-                    config.read(config_path)
-                    section = config["App"] if "App" in config else config["DEFAULT"]
-                    
-                    apps.append({
-                        "name": section.get("name", app_folder),
-                        "description": section.get("description", ""),
-                        "icon": f"/api/icons/{source}/{category}/{app_folder}",
-                        "launchUrl": section.get("launchUrl", f"/apps/{source}/{category}/{app_folder}/start.py"),
-                        "source": source,
-                        "category": category,
-                        "folder": app_folder
-                    })
+            config_path = os.path.join(app_path, "config.ini")
+            if os.path.isfile(config_path):
+                config = configparser.ConfigParser()
+                config.read(config_path)
+                section = config["App"] if "App" in config else config["DEFAULT"]
+                
+                apps.append({
+                    "name": section.get("name", app_folder),
+                    "description": section.get("description", ""),
+                    "icon": f"/api/icons/{source}/{app_folder}",
+                    "launchUrl": section.get("launchUrl", f"/apps/{source}/{app_folder}/start.py"),
+                    "source": source,
+                    "folder": app_folder
+                })
 
     return jsonify(apps)
 
@@ -120,19 +114,17 @@ app_registry = [
     {
         "name": "Apollo Docs",
         "description": "Documentation Viewer and Editor",
-        "icon": "/apps/Apollo/productivity/docs/static/icons/icon.png",
-        "launchUrl": "/apps/Apollo/productivity/docs/index.html",
+        "icon": "/apps/Apollo/docs/icons/icon.png",
+        "launchUrl": "/apps/Apollo/docs/index.html",
         "source": "Apollo",
-        "category": "productivity",
         "folder": "docs"
     },
     {
         "name": "Apollo Slides",
         "description": "Presentation Viewer and Editor",
-        "icon": "/apps/Apollo/productivity/slides/static/icons/icon.png",
-        "launchUrl": "/apps/Apollo/productivity/slides/index.html",
+        "icon": "/apps/Apollo/slides/icons/icon.png",
+        "launchUrl": "/apps/Apollo/slides/index.html",
         "source": "Apollo",
-        "category": "productivity",
         "folder": "slides"
     }
 ]
@@ -366,10 +358,10 @@ def get_app_permissions(app_name):
     # Stub: for demo, return full permissions
     return jsonify({"app": app_name, "permissions": ["read", "write", "execute"]})
 
-@app.route("/api/icons/<source>/<category>/<folder>")
-def get_app_icon(source, category, folder):
+@app.route("/api/icons/<source>/<folder>")
+def get_app_icon(source, folder):
     base_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../apps"))
-    icon_dir = os.path.join(base_path, source, category, folder, "icons")
+    icon_dir = os.path.join(base_path, source, folder, "icons")
 
     for filename in ["icon.png", "icon.webp", "icon.svg", "icon.jpg"]:
         file_path = os.path.join(icon_dir, filename)
