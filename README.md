@@ -16,7 +16,6 @@ ApolloSuite is a modular, self-hosted control center that lets you:
 ## Getting Started
 
 1. Clone this repo
-2. Configure `cloudflared/config.yml`
-3. Run with `docker compose up`
+3. Run with `python supervisor.py`
 
 More to come soon...
