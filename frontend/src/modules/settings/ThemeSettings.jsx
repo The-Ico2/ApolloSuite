@@ -75,8 +75,8 @@ export default function ThemeSettings({ currentTheme, setCurrentTheme, currentVa
         />
       </div>
       <a
-        href="/themes/default.css"
-        download="default.css"
+        href="/themes/global.css"
+        download="global.css"
         style={{
           display: 'inline-block',
           marginTop: '1rem',
@@ -89,7 +89,7 @@ export default function ThemeSettings({ currentTheme, setCurrentTheme, currentVa
           cursor: 'pointer',
         }}
       >
-        Download Default Theme CSS
+        Download Global Theme CSS
       </a>
     </div>
   );

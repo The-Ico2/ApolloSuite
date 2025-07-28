@@ -1,342 +1,50 @@
-/* Solarized Theme */
+/* =================
+   Solarized Theme CSS
+   Light / Dark / High Contrast
+   ================= */
+
+/* Import global styles */
+@import url(global.css);
+
 
 /* Light variant */
 :root[data-theme='light'] {
-  --bg-color: #fdf6e3;            /* base3 */
-  --text-color: #657b83;          /* base00 */
-  --primary-color: #268bd2;       /* blue */
-  --secondary-color: #2aa198;     /* cyan */
-  --sidebar-bg: #eee8d5;          /* base2 */
-  --sidebar-text: #586e75;        /* base01 */
-  --sidebar-hover: #93a1a1;       /* base1 */
-  --link-color: #268bd2;          /* blue */
-  --border-color: #eee8d5;        /* base2 */
-  --accent-color: #b58900;        /* yellow */
+  --bg-color: #fdf6e3;         /* rgb(253, 246, 227) */
+  --text-color: #657b83;       /* rgb(101, 123, 131) */
+  --primary-color: #268bd2;    /* rgb(38, 139, 210) */
+  --secondary-color: #2aa198;  /* rgb(42, 161, 152) */
+  --sidebar-bg: #eee8d5;       /* rgb(238, 232, 213) */
+  --sidebar-text: #586e75;     /* rgb(88, 110, 117) */
+  --sidebar-hover: #93a1a1;    /* rgb(147, 161, 161) */
+  --link-color: #268bd2;       /* rgb(38, 139, 210) */
+  --border-color: #eee8d5;     /* rgb(238, 232, 213) */
+  --accent-color: #b58900;     /* rgb(181, 137, 0) */
 }
 
 /* Dark variant */
 :root[data-theme='dark'] {
-  --bg-color: #002b36;            /* base03 */
-  --text-color: #839496;          /* base0 */
-  --primary-color: #268bd2;       /* blue */
-  --secondary-color: #2aa198;     /* cyan */
-  --sidebar-bg: #073642;          /* base02 */
-  --sidebar-text: #93a1a1;        /* base1 */
-  --sidebar-hover: #586e75;       /* base01 */
-  --link-color: #268bd2;          /* blue */
-  --border-color: #073642;        /* base02 */
-  --accent-color: #b58900;        /* yellow */
+  --bg-color: #002b36;         /* rgb(0, 43, 54) */
+  --text-color: #839496;       /* rgb(131, 148, 150) */
+  --primary-color: #268bd2;    /* rgb(38, 139, 210) */
+  --secondary-color: #2aa198;  /* rgb(42, 161, 152) */
+  --sidebar-bg: #073642;       /* rgb(7, 54, 66) */
+  --sidebar-text: #93a1a1;     /* rgb(147, 161, 161) */
+  --sidebar-hover: #586e75;    /* rgb(88, 110, 117) */
+  --link-color: #268bd2;       /* rgb(38, 139, 210) */
+  --border-color: #073642;     /* rgb(7, 54, 66) */
+  --accent-color: #b58900;     /* rgb(181, 137, 0) */
 }
 
 /* High Contrast variant */
 :root[data-theme='high-contrast'] {
-  --bg-color: #000000;
-  --text-color: #ffffff;
-  --primary-color: #ffff00;
-  --secondary-color: #ff00ff;
-  --sidebar-bg: #000000;
-  --sidebar-text: #ffffff;
-  --sidebar-hover: #444400;
-  --link-color: #ffff00;
-  --border-color: #ffffff;
-  --accent-color: #ffff00;
-}
-
-/* =================
-   Global CSS
-   ================= */
-/* global.css */
-
-/* ==== CSS Reset ==== */
-*,
-*::before,
-*::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ==== Font Sizes ==== */
-/* Root variables for font sizes */
-:root {
-  --font-xsmall: font-size: 14px; /* default font size */
-  --font-small: font-size: 15px; /* default font size */
-  --font-medium: font-size: 16px; /* default font size */
-  --font-large: font-size: 17px; /* default font size */
-  --font-xlarge: font-size: 18px; /* default font size */
-}
-/* Font Variants */
-:root[data-font-size='xsmall'] {font-size: var(--font-xsmall);}
-:root[data-font-size='small'] {font-size: var(--font-small);}
-:root[data-font-size='medium'] {font-size: var(--font-medium);}
-:root[data-font-size='large'] {font-size: var(--font-large);}
-:root[data-font-size='xlarge'] {font-size: var(--font-xlarge);}
-
-/* ==== Body styles ==== */
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  min-height: 100vh;
-  width: 100%;
-}
-
-/* ==== Links ==== */
-a {
-  color: var(--link-color);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* ==== Layout wrappers ==== */
-.app-layout {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.main-content {
-  flex-grow: 1;
-  padding: 2rem;
-  overflow-y: auto;
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
-
-/* ==== Sidebar / Dock Base ==== */
-.sidebar {
-  display: flex;
-  background-color: var(--sidebar-bg);
-  color: var(--sidebar-text);
-  box-shadow: 0 0 6px rgba(0,0,0,0.1);
-  user-select: none;
-  z-index: 1000;
-}
-.sidebar a {
-  color: inherit;
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.75rem;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-.sidebar a.active,
-.sidebar a:hover {
-  background-color: var(--sidebar-hover);
-  color: var(--accent-color);
-}
-
-/* Sidebar positioning variants */
-.sidebar-left {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  flex-direction: column;
-  width: 60px;
-  height: 100vh;
-}
-.sidebar-right {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  flex-direction: column;
-  width: 60px;
-  height: 100vh;
-}
-.sidebar-top {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  flex-direction: row;
-  width: 100vw;
-}
-.sidebar-bottom {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  flex-direction: row;
-  width: 100vw;
-}
-
-/* Sidebar content layout */
-.sidebar .dock-icons {
-  flex: 1;
-  display: flex;
-  flex-direction: inherit;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.sidebar .dock-tools {
-  flex: 1;
-  display: flex;
-  flex-direction: inherit;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-}
-
-.sidebar .dock-tools a, .sidebar .dock-tools button{
-  font-size: 1.1rem;
-  padding: 0.20rem; 
-  border-radius: 4px;
-  min-width: 1rem;
-  min-height: 1rem;
-  aspect-ratio: 1/1;
-  color: var(--sidebar-text);
-  transition: background-color 0.3s ease, color 0.3s ease;
-  cursor: pointer;
-}
-
-.sidebar .dock-tools a:hover,
-.sidebar .dock-tools a.active {
-  background-color: var(--sidebar-hover);
-  color: var(--accent-color);
-}
-.sidebar-left .dock-tools,
-.sidebar-right .dock-tools {
-  flex-direction: row;       /* Make them horizontal */
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  flex-wrap:  wrap;
-}
-.sidebar-top .dock-tools,
-.sidebar-bottom .dock-tools {
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-.sidebar .dock-tools::before {
-  content: '';
-  display: block;
-  width: 60%;
-  height: 1px;
-  background-color: var(--sidebar-hover);
-  margin: 0.5rem auto;
-}
-
-/* Sidebar footer */
-.sidebar .dock-footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0.5rem;
-  gap: 0.25rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--sidebar-text);
-}
-
-.sidebar-bottom .dock-footer, .sidebar-top .dock-footer {
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Sidebar positioning variants with main content padding */
-
-.sidebar-top-e .main-content {padding-top: 5rem;} /* Adjust for top sidebar */
-.sidebar-right-e .main-content {padding-right: 5rem;} /* Adjust for right sidebar */
-.sidebar-bottom-e .main-content {padding-bottom: 5rem;} /* Adjust for bottom sidebar */
-.sidebar-left-e .main-content {padding-left: 5rem;} /* Adjust for left sidebar */
-
-/* Clock in sidebar footer */
-.dock-clock {
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: var(--sidebar-text);
-  user-select: none;
-}
-
-/* ==== Buttons ==== */
-button {
-  background-color: var(--primary-color);
-  border: none;
-  color: var(--text-color);
-  padding: 0.5rem;
-  cursor: pointer;
-  border-radius: 3px;
-  font-weight: 600;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: var(--secondary-color);
-}
-
-/* ==== Scrollbar ==== */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-color);
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color);
-  border-radius: 4px;
-}
-/* Main Content Scroll Bar */
-.main-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.main-content::-webkit-scrollbar-track {
-  background: var(--bg-color);
-}
-
-.main-content::-webkit-scrollbar-thumb {
-  background-color: var(--accent-color);
-  border-radius: 4px;
-}
-
-.settings-content {
-  border: 2px var(--primary-color) solid;
-  border-radius: 3px;
-  padding: 1rem;
-  min-height: 80vh;
-}
-
-/* Animation keyframes */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.1); opacity: 0.8; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* No Animations toggle */
-.no-animations *, 
-.no-animations *::before, 
-.no-animations *::after {
-  animation-duration: 0 !important;
-  transition-duration: 0 !important;
-  scroll-behavior: auto !important;
+  --bg-color: #000000;         /* rgb(0, 0, 0) */
+  --text-color: #ffffff;       /* rgb(255, 255, 255) */
+  --primary-color: #ffff00;    /* rgb(255, 255, 0) */
+  --secondary-color: #ff00ff;  /* rgb(255, 0, 255) */
+  --sidebar-bg: #000000;       /* rgb(0, 0, 0) */
+  --sidebar-text: #ffffff;     /* rgb(255, 255, 255) */
+  --sidebar-hover: #444400;    /* rgb(68, 68, 0) */
+  --link-color: #ffff00;       /* rgb(255, 255, 0) */
+  --border-color: #ffffff;     /* rgb(255, 255, 255) */
+  --accent-color: #ffff00;     /* rgb(255, 255, 0) */
 }
