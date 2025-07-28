@@ -11,8 +11,6 @@ ApolloSuite is a modular, self-hosted control center that lets you:
 - 🔄 Social Media Manager
 - 🔐 Secure Tunnels (Cloudflared)
 - 💾 Cloud Storage
-- 🧠 Obsidian Sync
-
 ---
 
 ## Getting Started
