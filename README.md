@@ -25,6 +25,22 @@ More to come soon...
 
 ---
 
+## Current Goals
+- [ ] Build core modular plugin system <--- Currently here
+- [ ] Finalize app supervisor
+- [ ] Develop Provided Services (Cloud Storage, Docs, Slides, Notes, etc.)
+- [ ] Polish UI animations
+
+## End Goals
+- [ ] Self-host on Docker
+- [ ] Create Home Assistant Addon/integration
+- [ ] Enable full offline functionality
+- [ ] Launch plugin ecosystem
+- [ ] Ensure privacy-first architecture
+
+  
+---
+
 ## Note from Ico2
 
 This is my first time building a project of this scale, and also my first time working with React. While I’m still **extremely new** to both the tech stack and large-scale development, I’m learning rapidly and putting in the work to make ApolloSuite the best it can be.
